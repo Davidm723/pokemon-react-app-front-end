@@ -4,13 +4,23 @@ import { Link } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 
 const NavBar = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
 
   return (
     <nav>
       {user ? (
         <ul>
           <li>Welcome, {user.username}</li>
+          <li>
+            <Link to="/" onClick={handleSignOut}>
+              Sign Out
+            </Link>
+          </li>
         </ul>
       ) : (
         <ul>
