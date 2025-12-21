@@ -17,6 +17,9 @@ const NavBar = () => {
         <ul>
           <li>Welcome, {user.username}</li>
           <li>
+            <Link to="/">Dashboard</Link>
+          </li>
+          <li>
             <Link to="/" onClick={handleSignOut}>
               Sign Out
             </Link>
@@ -24,6 +27,9 @@ const NavBar = () => {
         </ul>
       ) : (
         <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
           <li>
             <Link to="/sign-in">Sign In</Link>
           </li>
