@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState, use } from "react";
+import { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import * as pokemonService from "../../services/pokemonService";
 import PokemonCard from "../PokemonCard/PokemonCard";
@@ -8,6 +8,7 @@ const Dashboard = () => {
   const [party, setParty] = useState([]);
   const [box, setBox] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [catchInput, setCatchInput] = useState("");
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -56,6 +57,26 @@ const Dashboard = () => {
     }
   };
 
+  const handleCatchPokemon = async (e) => {
+    e.preventDefault();
+
+    if (!catchInput.trim()) return;
+
+    try {
+      const newPokemon = await pokemonService.catchPokemon(catchInput);
+
+      if (newPokemon.location === "party") {
+        setParty((prev) => [...prev, newPokemon]);
+      } else {
+        setBox((prev) => [...prev, newPokemon]);
+      }
+
+      setCatchInput("");
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <main>
       <h1>{user.username}'s Pokemon</h1>
@@ -64,6 +85,15 @@ const Dashboard = () => {
         <p>Loading Pokemon...</p>
       ) : (
         <>
+          <form onSubmit={handleCatchPokemon}>
+            <input
+              type="text"
+              placeholder="Enter Pokemon Name or ID"
+              value={catchInput}
+              onChange={(e) => setCatchInput(e.target.value)}
+            />
+            <button type="submit">Catch Pokemon</button>
+          </form>
           <section>
             <h2>Party</h2>
             {party.length === 0 ? (
