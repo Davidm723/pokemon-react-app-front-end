@@ -1,4 +1,4 @@
-const PokemonCard = ({ pokemon }) => {
+const PokemonCard = ({ pokemon, onMove }) => {
   return (
     <li>
       <p>
@@ -7,6 +7,10 @@ const PokemonCard = ({ pokemon }) => {
         </strong>
       </p>
       <p>{pokemon.types.join(", ")}</p>
+
+      <button onClick={() => onMove(pokemon._id)}>
+        Move to {pokemon.location === "party" ? "Box" : "Party"}
+      </button>
     </li>
   );
 };

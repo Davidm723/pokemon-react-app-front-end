@@ -29,6 +29,22 @@ const Dashboard = () => {
     }
   }, [user]);
 
+  const handleMovePokemon = async (pokemonId) => {
+    try {
+      const updatedPokemon = await pokemonService.movePokemon(pokemonId);
+
+      if (updatedPokemon.location === "party") {
+        setBox((prev) => prev.filter((p) => p._id !== pokemonId));
+        setParty((prev) => [...prev, updatedPokemon]);
+      } else {
+        setParty((prev) => prev.filter((p) => p._id !== pokemonId));
+        setBox((prev) => [...prev, updatedPokemon]);
+      }
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <main>
       <h1>{user.username}'s Pokemon</h1>
@@ -44,7 +60,11 @@ const Dashboard = () => {
             ) : (
               <ul>
                 {party.map((pokemon) => (
-                  <PokemonCard key={pokemon._id} pokemon={pokemon} />
+                  <PokemonCard
+                    key={pokemon._id}
+                    pokemon={pokemon}
+                    onMove={handleMovePokemon}
+                  />
                 ))}
               </ul>
             )}
@@ -57,7 +77,11 @@ const Dashboard = () => {
             ) : (
               <ul>
                 {box.map((pokemon) => (
-                  <PokemonCard key={pokemon._id} pokemon={pokemon} />
+                  <PokemonCard
+                    key={pokemon._id}
+                    pokemon={pokemon}
+                    onMove={handleMovePokemon}
+                  />
                 ))}
               </ul>
             )}
