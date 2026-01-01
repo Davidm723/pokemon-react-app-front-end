@@ -1,36 +1,69 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, use } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import * as userService from "../../services/userService";
+import * as pokemonService from "../../services/pokemonService";
+import PokemonCard from "../PokemonCard/PokemonCard";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-  const [users, setUsers] = useState([]);
+  const [party, setParty] = useState([]);
+  const [box, setBox] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchPokemon = async () => {
       try {
-        const fetchedUsers = await userService.index();
-        setUsers(fetchedUsers);
+        const partyData = await pokemonService.getParty();
+        const boxData = await pokemonService.getBox();
+
+        setParty(partyData);
+        setBox(boxData);
       } catch (err) {
         console.log(err);
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (user) fetchUsers();
+    if (user) {
+      fetchPokemon();
+    }
   }, [user]);
 
   return (
     <main>
-      <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you can see a list of all the users.
-      </p>
+      <h1>{user.username}'s Pokemon</h1>
 
-      <ul>
-        {users.map((u) => (
-          <li key={u._id}>{u.username}</li>
-        ))}
-      </ul>
+      {loading ? (
+        <p>Loading Pokemon...</p>
+      ) : (
+        <>
+          <section>
+            <h2>Party</h2>
+            {party.length === 0 ? (
+              <p>Your party is empty</p>
+            ) : (
+              <ul>
+                {party.map((pokemon) => (
+                  <PokemonCard key={pokemon._id} pokemon={pokemon} />
+                ))}
+              </ul>
+            )}
+          </section>
+
+          <section>
+            <h2>Box</h2>
+            {box.length === 0 ? (
+              <p>Your box is empty</p>
+            ) : (
+              <ul>
+                {box.map((pokemon) => (
+                  <PokemonCard key={pokemon._id} pokemon={pokemon} />
+                ))}
+              </ul>
+            )}
+          </section>
+        </>
+      )}
     </main>
   );
 };
