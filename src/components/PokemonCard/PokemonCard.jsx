@@ -1,4 +1,4 @@
-const PokemonCard = ({ pokemon, onMove }) => {
+const PokemonCard = ({ pokemon, onMove, onRelease }) => {
   return (
     <li>
       <p>
@@ -11,6 +11,8 @@ const PokemonCard = ({ pokemon, onMove }) => {
       <button onClick={() => onMove(pokemon._id)}>
         Move to {pokemon.location === "party" ? "Box" : "Party"}
       </button>
+
+      <button onClick={() => onRelease(pokemon._id)}>Realease</button>
     </li>
   );
 };

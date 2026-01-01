@@ -45,6 +45,17 @@ const Dashboard = () => {
     }
   };
 
+  const handleReleasePokemon = async (pokemonId) => {
+    try {
+      await pokemonService.releasePokemon(pokemonId);
+
+      setParty((prev) => prev.filter((p) => p._id !== pokemonId));
+      setBox((prev) => prev.filter((p) => p._id !== pokemonId));
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <main>
       <h1>{user.username}'s Pokemon</h1>
@@ -64,6 +75,7 @@ const Dashboard = () => {
                     key={pokemon._id}
                     pokemon={pokemon}
                     onMove={handleMovePokemon}
+                    onRelease={handleReleasePokemon}
                   />
                 ))}
               </ul>
@@ -81,6 +93,7 @@ const Dashboard = () => {
                     key={pokemon._id}
                     pokemon={pokemon}
                     onMove={handleMovePokemon}
+                    onRelease={handleReleasePokemon}
                   />
                 ))}
               </ul>
