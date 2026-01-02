@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [box, setBox] = useState([]);
   const [loading, setLoading] = useState(true);
   const [catchInput, setCatchInput] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -31,6 +32,8 @@ const Dashboard = () => {
   }, [user]);
 
   const handleMovePokemon = async (pokemonId) => {
+    setError("");
+
     try {
       const updatedPokemon = await pokemonService.movePokemon(pokemonId);
 
@@ -42,23 +45,26 @@ const Dashboard = () => {
         setBox((prev) => [...prev, updatedPokemon]);
       }
     } catch (err) {
-      throw err;
+      setError(err.message || "Unable to move Pokémon");
     }
   };
 
   const handleReleasePokemon = async (pokemonId) => {
+    setError("");
+
     try {
       await pokemonService.releasePokemon(pokemonId);
 
       setParty((prev) => prev.filter((p) => p._id !== pokemonId));
       setBox((prev) => prev.filter((p) => p._id !== pokemonId));
     } catch (err) {
-      throw err;
+      setError(err.message || "Failed to release Pokémon");
     }
   };
 
   const handleCatchPokemon = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (!catchInput.trim()) return;
 
@@ -73,13 +79,14 @@ const Dashboard = () => {
 
       setCatchInput("");
     } catch (err) {
-      throw err;
+      setError(err.message || "Failed to catch Pokemon");
     }
   };
 
   return (
     <main>
       <h1>{user.username}'s Pokemon</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       {loading ? (
         <p>Loading Pokemon...</p>
