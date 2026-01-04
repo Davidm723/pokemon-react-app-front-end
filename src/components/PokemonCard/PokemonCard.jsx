@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./PokemonCard.css";
 
-const PokemonCard = ({ pokemon, onMove, onRelease }) => {
+const PokemonCard = ({ pokemon, onMove, onRelease, partyCount }) => {
   const [showStats, setShowStats] = useState(false);
+  const isPartyFull = partyCount >= 6;
+  const isMovingToParty = pokemon.location === "box";
 
   return (
     <li className="pokemon-card">
@@ -12,16 +14,21 @@ const PokemonCard = ({ pokemon, onMove, onRelease }) => {
 
       {showStats && (
         <ul className="stats">
-            {Object.entries(pokemon.stats).map(([stat, value]) => (
-                <li key={stat}>
-                    <strong>{stat}:</strong> {value}
-                </li>
-            ))}
+          {Object.entries(pokemon.stats).map(([stat, value]) => (
+            <li key={stat}>
+              <strong>{stat}:</strong> {value}
+            </li>
+          ))}
         </ul>
       )}
 
-      <button onClick={() => onMove(pokemon._id)}>
-        Move to {pokemon.location === "party" ? "Box" : "Party"}
+      <button
+        onClick={() => onMove(pokemon._id)}
+        disabled={isPartyFull && isMovingToParty}
+      >
+        {isPartyFull && isMovingToParty
+          ? "Party Full"
+          : `Move to ${pokemon.location === "party" ? "Box" : "Party"}`}
       </button>
 
       <button onClick={() => onRelease(pokemon._id)}>Release</button>

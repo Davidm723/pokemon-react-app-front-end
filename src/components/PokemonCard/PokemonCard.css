@@ -22,6 +22,11 @@
   cursor: pointer;
 }
 
+.pokemon-card button:disabled {
+  color: grey;
+  cursor: default;
+}
+
 .stats {
   margin-top: 0.5rem;
   padding: 0;

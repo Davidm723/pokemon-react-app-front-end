@@ -119,7 +119,7 @@ const Dashboard = () => {
               </ul>
             )}
           </section>
-
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <section className="box">
             <h2>Box</h2>
             {box.length === 0 ? (
@@ -132,6 +132,7 @@ const Dashboard = () => {
                     pokemon={pokemon}
                     onMove={handleMovePokemon}
                     onRelease={handleReleasePokemon}
+                    partyCount={party.length}
                   />
                 ))}
               </ul>
