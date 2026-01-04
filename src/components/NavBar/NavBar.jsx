@@ -3,6 +3,8 @@ import { Link } from "react-router";
 
 import { UserContext } from "../../contexts/UserContext";
 
+import './NavBar.css'
+
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 

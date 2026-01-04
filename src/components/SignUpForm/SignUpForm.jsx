@@ -5,6 +5,8 @@ import { signUp } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
 
+import './SignUpForm.css'
+
 const SignUpForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -38,11 +40,11 @@ const SignUpForm = () => {
   };
 
   return (
-    <main>
+    <main className="sign-up-main">
       <h1>Sign Up</h1>
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="username">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -53,7 +55,7 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="password">
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -64,7 +66,7 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="password">
           <label htmlFor="confirm">Confirm Password:</label>
           <input
             type="password"
@@ -75,7 +77,7 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="button-div">
           <button disabled={isFormInvalid()}>Sign Up</button>
           <button onClick={() => navigate("/")}>Cancel</button>
         </div>

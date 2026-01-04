@@ -1,0 +1,35 @@
+.pokemon-card {
+  background: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.pokemon-card h3 {
+  margin: 0 0 0.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.pokemon-card p {
+  text-transform: capitalize;
+}
+
+.pokemon-card button {
+  margin: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.stats {
+  margin-top: 0.5rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.stats li {
+  margin: 0.25rem 0;
+}

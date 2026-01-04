@@ -5,6 +5,8 @@ import { signIn } from "../../services/authService";
 
 import { UserContext } from "../../contexts/UserContext";
 
+import './SignInForm.css'
+
 const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -32,11 +34,11 @@ const SignInForm = () => {
   };
 
   return (
-    <main>
+    <main className="sign-in-main">
       <h1>Sign In</h1>
       <p>{message}</p>
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <div>
+        <div className="username">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -48,7 +50,7 @@ const SignInForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="password">
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -60,7 +62,7 @@ const SignInForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="button-div">
           <button>Sign In</button>
           <button onClick={() => navigate("/")}>Cancel</button>
         </div>

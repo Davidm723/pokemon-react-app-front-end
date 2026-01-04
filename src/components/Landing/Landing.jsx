@@ -1,8 +1,17 @@
+import './Landing.css'
+import { useNavigate } from 'react-router';
+
 const Landing = () => {
+  const navigate = useNavigate()
+
   return (
-    <main>
-      <h1>Hello, you are on the landing page for visitors.</h1>
-      <p>Sign up now, or sign in to see your super secret dashboard!</p>
+    <main className='landing-main'>
+      <h1>Welcome to the Pokemon <br /> Party and Box Manager</h1>
+      <p>Please sign up or sign in to manage your Party</p>
+      <div>
+        <button onClick={() => navigate('/sign-in')}>Sign In</button>
+        <button onClick={() => navigate('/sign-up')}>Sign Up</button>
+      </div>
     </main>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import * as pokemonService from "../../services/pokemonService";
 import PokemonCard from "../PokemonCard/PokemonCard";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -84,7 +85,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main>
+    <main className="dashboard-main">
       <h1>{user.username}'s Pokemon</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -101,12 +102,12 @@ const Dashboard = () => {
             />
             <button type="submit">Catch Pokemon</button>
           </form>
-          <section>
+          <section className="party">
             <h2>Party</h2>
             {party.length === 0 ? (
               <p>Your party is empty</p>
             ) : (
-              <ul>
+              <ul className="pokemon-grid">
                 {party.map((pokemon) => (
                   <PokemonCard
                     key={pokemon._id}
@@ -119,12 +120,12 @@ const Dashboard = () => {
             )}
           </section>
 
-          <section>
+          <section className="box">
             <h2>Box</h2>
             {box.length === 0 ? (
               <p>Your box is empty</p>
             ) : (
-              <ul>
+              <ul className="pokemon-grid">
                 {box.map((pokemon) => (
                   <PokemonCard
                     key={pokemon._id}

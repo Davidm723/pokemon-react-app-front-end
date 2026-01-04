@@ -1,0 +1,36 @@
+nav {
+  background-color: #ef5350;
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li:first-child {
+  margin-right: auto;
+  font-weight: 600;
+  color: white;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a:last-child {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
