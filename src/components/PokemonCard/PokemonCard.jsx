@@ -8,6 +8,7 @@ const PokemonCard = ({ pokemon, onMove, onRelease, partyCount }) => {
 
   return (
     <li className="pokemon-card">
+      <img src={pokemon.sprite} alt={pokemon.name} />
       <h3 onClick={() => setShowStats((prev) => !prev)}>{pokemon.name}</h3>
 
       <p>{pokemon.types.join(", ")}</p>
